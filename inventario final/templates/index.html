@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario de Electrónica</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>Gestión de Inventario de Electrónica</h1>
+    </header>
+
+    <section class="contenido">
+        <div class="seccion">
+            <!-- Tabla de productos en inventario -->
+            <div class="tabla tarjeta">
+                <h2>Productos en Inventario</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Cantidad</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in inventario %}
+                        <tr>
+                            <td>{{ producto.id }}</td>
+                            <td>{{ producto.nombre }}</td>
+                            <td>{{ producto.descripcion }}</td>
+                            <td>{{ producto.cantidad }}</td>
+                            <td>{{ producto.estado }}</td>
+                            <td>
+                                <!-- Formulario para eliminar cantidad de producto -->
+                                <form action="{{ url_for('eliminar_producto', id=producto.id) }}" method="POST" style="display:inline;">
+                                    <label for="cantidad_eliminar_{{ producto.id }}">Cantidad a eliminar</label>
+                                    <input type="number" id="cantidad_eliminar_{{ producto.id }}" name="cantidad_eliminar" min="1" max="{{ producto.cantidad }}" required>
+                                    <button type="submit">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="seccion">
+            <div class="formulario tarjeta">
+                <h2>Agregar Producto</h2>
+                <form action="/agregar" method="POST">
+                    <label for="id_producto">ID del Producto</label>
+                    <input type="number" id="id_producto" name="id_producto" required>
+
+                    <label for="nombre">Nombre del Producto</label>
+                    <input type="text" id="nombre" name="nombre" required>
+
+                    <label for="descripcion">Descripción</label>
+                    <input type="text" id="descripcion" name="descripcion" required>
+
+                    <label for="cantidad">Cantidad a Agregar</label>
+                    <input type="number" id="cantidad" name="cantidad" required>
+
+                    <label for="estado">Estado</label>
+                    <select id="estado" name="estado" required>
+                        <option value="bueno">Bueno</option>
+                        <option value="malo">Malo</option>
+                    </select>
+
+                    <button type="submit">Agregar</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="seccion">
+            <div class="tabla tarjeta">
+                <h2>Objetos Retirados</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Fecha de Retiro</th>
+                            <th>Número de Control</th>
+                            <th>Nombre del Estudiante</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos_prestados %}
+                        <tr>
+                            <td>{{ producto.id }}</td>
+                            <td>{{ producto.nombre }}</td>
+                            <td>{{ producto.fecha_retiro }}</td>
+                            <td>{{ producto.numero_control }}</td>
+                            <td>{{ producto.nombre_estudiante }}</td>
+                            <td>
+                                <form action="{{ url_for('devolver_producto', id=producto.id) }}" method="POST">
+                                    <label for="estado_devuelto_{{ producto.id }}">Estado</label>
+                                    <select id="estado_devuelto_{{ producto.id }}" name="estado_devuelto" required>
+                                        <option value="bueno">Bueno</option>
+                                        <option value="malo">Malo</option>
+                                    </select>
+                                    <button type="submit">Devolver</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <h3>Solicitar Producto Prestado</h3>
+                <form action="/retirar" method="POST">
+                    <label for="id_producto">ID del producto</label>
+                    <input type="number" id="id_producto" name="id_producto" required>
+
+                    <label for="numero_control">Número de Control</label>
+                    <input type="text" id="numero_control" name="numero_control" required>
+
+                    <label for="nombre">Nombre del Estudiante</label>
+                    <input type="text" id="nombre" name="nombre" required>
+
+                    <button type="submit">Pedir Prestado</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="seccion">
+            <div class="tabla tarjeta">
+                <h2>Productos en Mal Estado</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos_malos %}
+                        <tr>
+                            <td>{{ producto.id }}</td>
+                            <td>{{ producto.nombre }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

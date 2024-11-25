@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #2c3e50;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: #34495e;
+            animation: moveFigures 10s ease-in-out infinite;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: floatCircle 10s ease-in-out infinite;
+        }
+
+        @keyframes moveFigures {
+            0% {
+                background-color: #34495e;
+            }
+            50% {
+                background-color: #2c3e50;
+            }
+            100% {
+                background-color: #34495e;
+            }
+        }
+
+        @keyframes floatCircle {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(200px) translateX(200px);
+            }
+            100% {
+                transform: translateY(0) translateX(0);
+            }
+        }
+
+        .circle:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 10%;
+            background-color: #f39c12;
+            animation-duration: 10s;
+        }
+
+        .circle:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 15%;
+            background-color: #e74c3c;
+            animation-duration: 12s;
+        }
+
+        .circle:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            top: 30%;
+            right: 5%;
+            background-color: #9b59b6;
+            animation-duration: 15s;
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        button:active {
+            background-color: #1f618d;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 1em;
+            opacity: 0.6;
+        }
+
+        {% if error %}
+        .error {
+            color: red;
+            margin: 10px 0;
+        }
+        {% endif %}
+    </style>
+    <script>
+        const students = {
+            "21590125": "Elias Enrique Garcia Reyes",
+            "21590123": "Aldo Galvan Monroy",
+            "21590404": "Colorado Trejo Braulio",
+            "21590132": "Josué Misael Velázquez Primero",
+            "21590121": "Jesus David Chávez Rodríguez"
+        };
+
+        function autoCompleteName() {
+            const studentId = document.getElementById("numero_control").value;
+            const studentName = students[studentId];
+
+            if (studentName) {
+                document.getElementById("nombre").value = studentName;
+            } else {
+                document.getElementById("nombre").value = '';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="background">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <div class="login-container">
+        <h2>Inicio de Sesión</h2>
+        <form action="/autenticar" method="POST">
+            <input type="text" id="numero_control" name="numero_control" placeholder="Número de Control" required onkeyup="autoCompleteName()">
+            <input type="text" id="nombre" name="nombre" placeholder="Nombre Completo" required readonly>
+            {% if error %}
+            <p class="error">{{ error }}</p>
+            {% endif %}
+            <button type="submit">Ingresar</button>
+        </form>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 Ing. Electronica</p>
+    </div>
+</body>
+</html>

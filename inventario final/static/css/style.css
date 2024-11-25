@@ -1,0 +1,148 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #2c3e50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #34495e;
+    color: white;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+}
+
+.contenido {
+    display: flex;
+    gap: 40px;
+    padding: 20px;
+    max-width: 1200px;
+    width: 100%;
+    justify-content: center;
+}
+
+.tabla {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin-left: 0; /* Para mover la tabla más hacia la izquierda */
+    margin-right: 20px; /* Mantener algo de margen a la derecha */
+}
+
+.tabla:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.tabla h2 {
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+    color: #34495e;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+table th {
+    background-color: #2980b9;
+    color: white;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #ecf0f1;
+}
+
+.formulario {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.formulario:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.formulario h2 {
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+    color: #34495e;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+form label {
+    margin-top: 15px;
+    display: block;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+form input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border-radius: 6px;
+    border: 1px solid #bdc3c7;
+    transition: border-color 0.3s;
+}
+
+form input:focus {
+    border-color: #2980b9;
+    outline: none;
+}
+
+form button {
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+form button:hover {
+    background-color: #3498db;
+    transform: translateY(-2px);
+}
+
+form button:active {
+    transform: translateY(0);
+}
